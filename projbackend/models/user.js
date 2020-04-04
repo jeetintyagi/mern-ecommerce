@@ -36,7 +36,10 @@ var userSchema = new mongoose.Schema({
                 type: Array,
                 default: [],
         }
-})
+},
+        { timestamps: true },
+
+)
 
 userSchema.virtual()
         .set(function () {
@@ -67,6 +70,5 @@ userSchema.method = {
                         return "";
                 }
         }
-
 }
 module.exports = mongoose.model("User", userSchema);
