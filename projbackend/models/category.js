@@ -7,7 +7,6 @@ var categorySchema = new mongoose.Schema({
                 required: true,
                 unique: true,
         },
-
 },
         { timestamps: true },
 );

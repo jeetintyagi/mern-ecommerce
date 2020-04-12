@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 const crypto = require("crypto");
 import { v1 as uuidv1 } from 'uuid';
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
         name: {
                 type: String,
                 maxlength: 32,
