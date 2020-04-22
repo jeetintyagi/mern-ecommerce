@@ -1,7 +1,7 @@
 {
   "name": "projbackend",
   "version": "1.0.0",
-  "description": "",
+  "description": "E-commerce web application using MERN stack.",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
