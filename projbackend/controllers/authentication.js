@@ -1,4 +1,14 @@
 const User = require("../models/user");
+const { check , validationResult }= require("express-validator");
+
+exports.signup=(req,res)=>{
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+                return res.status(422).json({
+                        error: errors.array()[0].msg
+                });
+        }
+}
 
 exports.signup = (req, res) => {
         const user = new User(req.body);
