@@ -3,35 +3,35 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
-const authRoutes = require("./routes/authentication.js");
+const authRoutes = require("./routes/auth");
 
-//MONGO DB
-mongoose.connect(process.env.DATABASE, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-}
-).then(() => {
-        console.log("\nDATABASE CONNECTED")
-});
+//DB Connection
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
+  .then(() => {
+    console.log("DB CONNECTED");
+  });
 
-//MIDDLEWARES
-app.use(cors());
+//Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
-
-//AUTHENTICATION ROUTES
+//My Routes
 app.use("/api", authRoutes);
 
-
-//TO RUN THE APP ON SERVER
+//PORT
 const port = process.env.PORT || 8000;
 
+//Starting a server
 app.listen(port, () => {
-        console.log(`app is running at port:${port}`);
-        console.log("http://localhost:8000/api/signout");
+  console.log(`app is running at ${port}`+"\nhttp://localhost:8000/");
 });
