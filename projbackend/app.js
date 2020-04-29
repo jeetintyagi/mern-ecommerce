@@ -7,7 +7,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+//My routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const categoryRoutes = require("./routes/category");
 
 //DB Connection
 mongoose
@@ -25,13 +28,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-//My Routes
+//Routes in use
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 //PORT
 const port = process.env.PORT || 8000;
 
 //Starting a server
 app.listen(port, () => {
-  console.log(`app is running at ${port}`+"\nhttp://localhost:8000/");
+  console.log(`app is running at ${port}`+" http://localhost:8000/api/signout");
 });

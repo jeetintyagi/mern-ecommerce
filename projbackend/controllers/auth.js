@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const { check, validationResult } = require("express-validator");
-var jwt = require("jsonWebToken");
+var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
 
 exports.signup = (req, res) => {
@@ -38,9 +38,9 @@ exports.signin = (req, res) => {
   }
 
   User.findOne({ email }, (err, user) => {
-    if (err ||!user) {
+    if (err || !user) {
       return res.status(400).json({
-        error: "Email does not exists"
+        error: "USER email does not exists"
       });
     }
 
@@ -57,20 +57,39 @@ exports.signin = (req, res) => {
 
     //send response to front end
     const { _id, name, email, role } = user;
-    return res.json({
-      token,
-      user: {
-        _id,
-        name,
-        email,
-        role
-      }
-    });
+    return res.json({ token, user: { _id, name, email, role } });
   });
 };
 
 exports.signout = (req, res) => {
+  res.clearCookie("token");
   res.json({
-    message: "User signout"
+    message: "User signout successfully"
   });
+};
+
+//protected routes
+exports.isSignedIn = expressJwt({
+  secret: process.env.SECRET,
+  userProperty: "auth"
+});
+
+//custom middlewares
+exports.isAuthenticated = (req, res, next) => {
+  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+  if (!checker) {
+    return res.status(403).json({
+      error: "ACCESS DENIED"
+    });
+  }
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  if (req.profile.role === 0) {
+    return res.status(403).json({
+      error: "You are not ADMIN, Access denied"
+    });
+  }
+  next();
 };
