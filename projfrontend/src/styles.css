@@ -9,8 +9,18 @@ body {
 }
 
 footer {
-  position: absolute;
-  bottom: 0px;
   right: 0px;
+  bottom:0px;
   left: 0px;
+
+}
+
+
+.dropzone {
+  text-align: center;
+  padding: 20px;
+  border: 3px dashed #eeeeee;
+  background-color: #fafafa;
+  color: #8a8888;
+  cursor: pointer;
 }
