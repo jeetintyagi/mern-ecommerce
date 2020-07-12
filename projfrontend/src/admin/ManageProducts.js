@@ -12,8 +12,8 @@ const ManageProducts = () => {
 
     const preload = () => {
         getAllProducts().then((data) => {
-            if (data.error) {
-                console.log(data.error);
+            if (data?.error) {
+                console.log(data?.error);
             } else {
                 setProducts(data);
             }
@@ -57,7 +57,7 @@ const ManageProducts = () => {
                                 <div className="col-4">
                                     <Link
                                         className="btn btn-success"
-                                        to={`/admin/product/update/productId`}
+                                        to={`/admin/product/update/${product._id}`}
                                     >
                                         <span className="">Update</span>
                                     </Link>
